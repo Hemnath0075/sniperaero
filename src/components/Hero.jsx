@@ -1,11 +1,22 @@
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronRight, ArrowRight, Target, Zap, Shield, Crosshair } from 'lucide-react';
 
 const techStack = ['Hardware', 'Firmware', 'Software', 'Cloud', 'AI'];
 
 export default function Hero() {
   const canvasRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  // Parallax scroll effect
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -13,6 +24,11 @@ export default function Hero() {
     const ctx = canvas.getContext('2d');
     let animId;
     let particles = [];
+
+    const getParticleColor = () => {
+      const style = getComputedStyle(document.documentElement);
+      return style.getPropertyValue('--particle-color').trim() || '0, 212, 255';
+    };
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -41,9 +57,10 @@ export default function Hero() {
         }
       }
       draw() {
+        const color = getParticleColor();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+        ctx.fillStyle = `rgba(${color}, ${this.opacity})`;
         ctx.fill();
       }
     }
@@ -54,6 +71,7 @@ export default function Hero() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const color = getParticleColor();
       particles.forEach((p) => {
         p.update();
         p.draw();
@@ -68,7 +86,7 @@ export default function Hero() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 212, 255, ${0.06 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(${color}, ${0.06 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -89,24 +107,35 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary">
-      {/* Particle Canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
+    <section
+      id="home"
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+    >
+      {/* Particle Canvas with parallax */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
+        <canvas ref={canvasRef} className="absolute inset-0" />
+      </motion.div>
 
       {/* Background HUD Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-        <div className="absolute top-10 left-10 w-32 h-32 border-l border-t border-accent/30 rounded-tl-3xl" />
-        <div className="absolute top-10 right-10 w-32 h-32 border-r border-t border-accent/30 rounded-tr-3xl" />
-        <div className="absolute bottom-10 left-10 w-32 h-32 border-l border-b border-accent/30 rounded-bl-3xl" />
-        <div className="absolute bottom-10 right-10 w-32 h-32 border-r border-b border-accent/30 rounded-br-3xl" />
+      <motion.div style={{ y: bgY, opacity }} className="absolute inset-0 z-0 pointer-events-none opacity-20">
+        <div className="absolute top-10 left-10 w-20 sm:w-32 h-20 sm:h-32 rounded-tl-3xl" style={{ borderLeft: '1px solid var(--accent-border)', borderTop: '1px solid var(--accent-border)' }} />
+        <div className="absolute top-10 right-10 w-20 sm:w-32 h-20 sm:h-32 rounded-tr-3xl" style={{ borderRight: '1px solid var(--accent-border)', borderTop: '1px solid var(--accent-border)' }} />
+        <div className="absolute bottom-10 left-10 w-20 sm:w-32 h-20 sm:h-32 rounded-bl-3xl" style={{ borderLeft: '1px solid var(--accent-border)', borderBottom: '1px solid var(--accent-border)' }} />
+        <div className="absolute bottom-10 right-10 w-20 sm:w-32 h-20 sm:h-32 rounded-br-3xl" style={{ borderRight: '1px solid var(--accent-border)', borderBottom: '1px solid var(--accent-border)' }} />
         
         {/* Scanning Line */}
         <motion.div 
           animate={{ top: ['0%', '100%', '0%'] }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent/40 to-transparent shadow-[0_0_15px_rgba(0,212,255,0.5)] z-0"
+          className="absolute left-0 right-0 h-[2px] z-0"
+          style={{
+            background: `linear-gradient(to right, transparent, rgba(var(--accent-rgb), 0.4), transparent)`,
+            boxShadow: `0 0 15px rgba(var(--accent-rgb), 0.5)`,
+          }}
         />
-      </div>
+      </motion.div>
 
       {/* Floating Drone Graphic */}
       <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
@@ -120,23 +149,23 @@ export default function Hero() {
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="relative w-full max-w-4xl flex justify-between items-center px-10 opacity-30"
+          className="relative w-full max-w-4xl flex justify-between items-center px-4 sm:px-10 opacity-30"
         >
           {/* Left HUD readout */}
           <div className="hidden lg:block space-y-4">
-            <div className="p-3 border border-accent/20 bg-accent/5 rounded-lg backdrop-blur-sm">
-              <div className="text-[10px] text-accent uppercase tracking-tighter mb-1">Alt Status</div>
-              <div className="font-mono text-xs text-white">425.82m <span className="text-accent animate-pulse">▲</span></div>
+            <div className="p-3 rounded-lg backdrop-blur-sm" style={{ border: '1px solid var(--accent-border)', backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}>
+              <div className="text-[10px] uppercase tracking-tighter mb-1" style={{ color: 'var(--accent)' }}>Alt Status</div>
+              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>425.82m <span className="animate-pulse" style={{ color: 'var(--accent)' }}>▲</span></div>
             </div>
-            <div className="p-3 border border-accent/20 bg-accent/5 rounded-lg backdrop-blur-sm">
-              <div className="text-[10px] text-accent uppercase tracking-tighter mb-1">Telemetry</div>
-              <div className="font-mono text-xs text-white">LAT: 12.9716<br/>LON: 77.5946</div>
+            <div className="p-3 rounded-lg backdrop-blur-sm" style={{ border: '1px solid var(--accent-border)', backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}>
+              <div className="text-[10px] uppercase tracking-tighter mb-1" style={{ color: 'var(--accent)' }}>Telemetry</div>
+              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>LAT: 12.9716<br/>LON: 77.5946</div>
             </div>
           </div>
 
           {/* Center Drone Silhouette (SVG) */}
           <div className="relative">
-             <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-accent drop-shadow-[0_0_20px_rgba(0,212,255,0.3)]">
+             <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[200px] sm:w-[300px] lg:w-[400px] h-auto" style={{ color: 'var(--accent)', filter: `drop-shadow(0 0 20px rgba(var(--accent-rgb), 0.3))` }}>
                 {/* Main Body */}
                 <path d="M150 100L250 100L260 110L140 110L150 100Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2"/>
                 <path d="M180 90L220 90L230 100L170 100L180 90Z" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1"/>
@@ -173,32 +202,38 @@ export default function Hero() {
              <motion.div 
                animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
                transition={{ duration: 2, repeat: Infinity }}
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 border-2 border-accent rounded-full"
+               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 sm:w-40 h-28 sm:h-40 rounded-full"
+               style={{ border: `2px solid var(--accent)` }}
              />
           </div>
 
           {/* Right HUD readout */}
           <div className="hidden lg:block space-y-4 text-right">
-            <div className="p-3 border border-accent/20 bg-accent/5 rounded-lg backdrop-blur-sm">
-              <div className="text-[10px] text-accent uppercase tracking-tighter mb-1">Signal</div>
-              <div className="font-mono text-xs text-white">STRONG [98%]</div>
+            <div className="p-3 rounded-lg backdrop-blur-sm" style={{ border: '1px solid var(--accent-border)', backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}>
+              <div className="text-[10px] uppercase tracking-tighter mb-1" style={{ color: 'var(--accent)' }}>Signal</div>
+              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>STRONG [98%]</div>
             </div>
-            <div className="p-3 border border-accent/20 bg-accent/5 rounded-lg backdrop-blur-sm">
-              <div className="text-[10px] text-accent uppercase tracking-tighter mb-1">AI Link</div>
-              <div className="font-mono text-xs text-white">ACTIVE.v2</div>
+            <div className="p-3 rounded-lg backdrop-blur-sm" style={{ border: '1px solid var(--accent-border)', backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}>
+              <div className="text-[10px] uppercase tracking-tighter mb-1" style={{ color: 'var(--accent)' }}>AI Link</div>
+              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>ACTIVE.v2</div>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
+      {/* Content with parallax */}
+      <motion.div style={{ y: contentY, opacity }} className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 sm:pt-24">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 text-accent text-[10px] font-bold tracking-[0.2em] uppercase mb-8"
+          className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[9px] sm:text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-6 sm:mb-8"
+          style={{
+            border: '1px solid var(--accent-border)',
+            backgroundColor: 'rgba(var(--accent-rgb), 0.05)',
+            color: 'var(--accent)',
+          }}
         >
           <Zap className="w-3 h-3 animate-pulse" />
           Autonomous Defense Systems
@@ -209,13 +244,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="font-orbitron text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+          className="font-orbitron text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 sm:mb-6"
         >
-          <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">Next-Gen </span>
-          <span className="text-accent text-glow">UAV</span>
+          <span style={{ color: 'var(--text-primary)', textShadow: '0 0 15px rgba(var(--accent-rgb), 0.1)' }}>Next-Gen </span>
+          <span className="text-glow" style={{ color: 'var(--accent)' }}>UAV</span>
           <br />
-          <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">& Intelligent </span>
-          <span className="text-accent text-glow">Systems</span>
+          <span style={{ color: 'var(--text-primary)', textShadow: '0 0 15px rgba(var(--accent-rgb), 0.1)' }}>& Intelligent </span>
+          <span className="text-glow" style={{ color: 'var(--accent)' }}>Systems</span>
         </motion.h1>
 
         {/* Subheading */}
@@ -223,7 +258,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-light"
+          className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-light"
+          style={{ color: 'var(--text-dim)' }}
         >
           Pioneering the future of unmanned aerial vehicles, IoT ecosystems, AI and ML defense technology
         </motion.p>
@@ -233,15 +269,22 @@ export default function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
-          className="flex flex-wrap items-center justify-center gap-3 mb-12"
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-12"
         >
           {techStack.map((item, i) => (
-            <span key={item} className="flex items-center gap-3">
-              <span className="px-4 py-2 rounded-lg bg-white/[0.03] border border-white/10 text-[10px] font-bold text-gray-300 font-space tracking-[0.1em] uppercase hover:border-accent/40 transition-colors">
+            <span key={item} className="flex items-center gap-2 sm:gap-3">
+              <span
+                className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[9px] sm:text-[10px] font-bold font-space tracking-[0.1em] uppercase transition-colors"
+                style={{
+                  backgroundColor: 'var(--bg-surface)',
+                  border: '1px solid var(--border-light)',
+                  color: 'var(--text-muted)',
+                }}
+              >
                 {item}
               </span>
               {i < techStack.length - 1 && (
-                <div className="w-1 h-1 rounded-full bg-accent/30" />
+                <div className="w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--accent-border)' }} />
               )}
             </span>
           ))}
@@ -252,18 +295,30 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
           <button
             onClick={() => scrollTo('#services')}
-            className="group flex items-center gap-3 px-10 py-4 rounded-xl bg-accent text-primary font-black text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(0,212,255,0.5)] hover:scale-105 transition-all duration-300"
+            className="group flex items-center gap-3 px-7 sm:px-10 py-3 sm:py-4 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center"
+            style={{
+              backgroundColor: 'var(--accent)',
+              color: 'var(--bg-primary)',
+              boxShadow: 'none',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.boxShadow = `0 0 30px rgba(var(--accent-rgb), 0.5)`}
+            onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
           >
             Explore Services
             <Target className="w-4 h-4 group-hover:rotate-45 transition-transform" />
           </button>
           <button
             onClick={() => scrollTo('#contact')}
-            className="group flex items-center gap-3 px-10 py-4 rounded-xl border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:border-accent/50 hover:bg-accent/5 transition-all duration-300"
+            className="group flex items-center gap-3 px-7 sm:px-10 py-3 sm:py-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto justify-center"
+            style={{
+              border: '1px solid var(--border-light)',
+              color: 'var(--text-primary)',
+              backgroundColor: 'transparent',
+            }}
           >
             Contact Us
             <Shield className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -271,23 +326,25 @@ export default function Hero() {
         </motion.div>
 
         {/* HUD Crosshair corner accents */}
-        <div className="absolute top-1/2 left-0 w-8 h-[1px] bg-accent/20" />
-        <div className="absolute top-1/2 right-0 w-8 h-[1px] bg-accent/20" />
-      </div>
+        <div className="absolute top-1/2 left-0 w-6 sm:w-8 h-[1px]" style={{ backgroundColor: 'rgba(var(--accent-rgb), 0.2)' }} />
+        <div className="absolute top-1/2 right-0 w-6 sm:w-8 h-[1px]" style={{ backgroundColor: 'rgba(var(--accent-rgb), 0.2)' }} />
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-gray-600"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3"
+        style={{ color: 'var(--text-dimmer)' }}
       >
-        <span className="text-[10px] font-bold tracking-[0.3em] uppercase">System Ready</span>
-        <div className="relative w-[2px] h-12 bg-white/5 overflow-hidden">
+        <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase">System Ready</span>
+        <div className="relative w-[2px] h-8 sm:h-12 overflow-hidden" style={{ backgroundColor: 'var(--border-color)' }}>
            <motion.div 
             animate={{ top: ['-100%', '100%'] }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="absolute left-0 right-0 h-1/2 bg-accent"
+            className="absolute left-0 right-0 h-1/2"
+            style={{ backgroundColor: 'var(--accent)' }}
            />
         </div>
       </motion.div>

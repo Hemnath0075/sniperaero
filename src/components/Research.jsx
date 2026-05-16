@@ -1,56 +1,96 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Lock, ArrowRight } from 'lucide-react';
+import { scrollRevealVariants } from '../hooks/useScrollAnimation';
 
 export default function Research() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const cardScale = useTransform(scrollYProgress, [0.2, 0.5], [0.92, 1]);
+
   return (
-    <section id="research" className="relative py-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
+    <section id="research" ref={sectionRef} className="relative py-16 sm:py-24 overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div style={{ y: imgY }} className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=80"
           alt="Research technology"
-          className="w-full h-full object-cover opacity-10 blur-sm"
+          className="w-full h-full object-cover blur-sm"
+          style={{ opacity: 0.1 }}
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-primary/90" />
-      </div>
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--bg-primary)', opacity: 0.9 }} />
+      </motion.div>
 
       <div className="section-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={scrollRevealVariants.blurReveal}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <span className="text-accent text-xs font-semibold tracking-[0.3em] uppercase mb-4 block">R&D</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Research & <span className="text-accent">Innovation</span>
+          <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>R&D</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+            Research & <span style={{ color: 'var(--accent)' }}>Innovation</span>
           </h2>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          variants={scrollRevealVariants.scaleFade}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-lg mx-auto"
         >
-          <div className="glass-card p-10 text-center border border-white/[0.08] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
-            <div className="relative z-10">
-              <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-6">
-                <Lock className="w-7 h-7 text-accent" />
+          <motion.div style={{ scale: cardScale }}>
+            <div
+              className="glass-card p-7 sm:p-10 text-center relative overflow-hidden"
+              style={{ border: '1px solid var(--border-color)' }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{ background: `linear-gradient(135deg, rgba(var(--accent-rgb), 0.05), transparent)` }}
+              />
+              <div className="relative z-10">
+                <div
+                  className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 sm:mb-6"
+                  style={{
+                    backgroundColor: 'var(--accent-subtle)',
+                    border: '1px solid var(--accent-border)',
+                  }}
+                >
+                  <Lock className="w-6 sm:w-7 h-6 sm:h-7" style={{ color: 'var(--accent)' }} />
+                </div>
+                <h3 className="font-orbitron text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Research Access Required</h3>
+                <p className="text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed" style={{ color: 'var(--text-dim)' }}>
+                  This section is available to authorized personnel only. Request access to view ongoing projects and innovation labs.
+                </p>
+                <button
+                  className="group inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-105"
+                  style={{
+                    backgroundColor: 'var(--accent-subtle)',
+                    border: '1px solid var(--accent-border)',
+                    color: 'var(--accent)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 25px rgba(var(--accent-rgb), 0.15)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  Request Login Access
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
-              <h3 className="font-orbitron text-xl font-bold text-white mb-3">Research Access Required</h3>
-              <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                This section is available to authorized personnel only. Request access to view ongoing projects and innovation labs.
-              </p>
-              <button className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-accent/10 border border-accent/30 text-accent font-semibold text-sm tracking-wide hover:bg-accent/20 hover:border-accent/60 hover:shadow-[0_0_25px_rgba(0,212,255,0.15)] transition-all duration-300">
-                Request Login Access
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

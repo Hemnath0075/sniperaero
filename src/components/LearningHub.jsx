@@ -1,55 +1,98 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { BookOpen, ArrowRight } from 'lucide-react';
+import { scrollRevealVariants } from '../hooks/useScrollAnimation';
 
 export default function LearningHub() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const cardScale = useTransform(scrollYProgress, [0.2, 0.5], [0.92, 1]);
+
   return (
-    <section id="learning-hub" className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section id="learning-hub" ref={sectionRef} className="relative py-16 sm:py-24 overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div style={{ y: imgY }} className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
           alt="Learning technology"
-          className="w-full h-full object-cover opacity-10 blur-sm"
+          className="w-full h-full object-cover blur-sm"
+          style={{ opacity: 0.1 }}
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-primary/90" />
-      </div>
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--bg-primary)', opacity: 0.9 }} />
+      </motion.div>
 
       <div className="section-padding relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={scrollRevealVariants.blurReveal}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <span className="text-accent text-xs font-semibold tracking-[0.3em] uppercase mb-4 block">Resources</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Learning <span className="text-accent">Hub</span>
+          <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>Resources</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+            Learning <span style={{ color: 'var(--accent)' }}>Hub</span>
           </h2>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          variants={scrollRevealVariants.scaleFade}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-lg mx-auto"
         >
-          <div className="glass-card p-10 text-center border border-white/[0.08] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent" />
-            <div className="relative z-10">
-              <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-6">
-                <BookOpen className="w-7 h-7 text-purple-400" />
+          <motion.div style={{ scale: cardScale }}>
+            <div
+              className="glass-card p-7 sm:p-10 text-center relative overflow-hidden"
+              style={{ border: '1px solid var(--border-color)' }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.05), transparent)' }}
+              />
+              <div className="relative z-10">
+                <div
+                  className="w-14 sm:w-16 h-14 sm:h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 sm:mb-6"
+                  style={{
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    border: '1px solid rgba(168, 85, 247, 0.2)',
+                  }}
+                >
+                  <BookOpen className="w-6 sm:w-7 h-6 sm:h-7" style={{ color: '#a855f7' }} />
+                </div>
+                <h3 className="font-orbitron text-lg sm:text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Learning Hub</h3>
+                <p className="text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed" style={{ color: 'var(--text-dim)' }}>
+                  Access our curated learning resources, courseware, and materials. Login required for full access.
+                </p>
+                <button
+                  className="group inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:scale-105"
+                  style={{
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
+                    color: '#a855f7',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = '0 0 25px rgba(168, 85, 247, 0.15)';
+                    e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.1)';
+                  }}
+                >
+                  Ask for Login Access
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
-              <h3 className="font-orbitron text-xl font-bold text-white mb-3">Learning Hub</h3>
-              <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                Access our curated learning resources, courseware, and materials. Login required for full access.
-              </p>
-              <button className="group inline-flex items-center gap-2 px-7 py-3 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 font-semibold text-sm tracking-wide hover:bg-purple-500/20 hover:border-purple-400/60 hover:shadow-[0_0_25px_rgba(168,85,247,0.15)] transition-all duration-300">
-                Ask for Login Access
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

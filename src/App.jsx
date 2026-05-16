@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="relative">
+    <div className="relative" style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh' }}>
       <Navbar />
       <Hero />
       <TrustSection />
