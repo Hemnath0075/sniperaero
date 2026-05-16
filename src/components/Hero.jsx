@@ -264,6 +264,28 @@ export default function Hero() {
           Pioneering the future of unmanned aerial vehicles, IoT ecosystems, AI and ML defense technology
         </motion.p>
 
+        {/* Additional Tags */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.40 }}
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6"
+        >
+          {['Fpv Drones', 'Cyber security & Ethical hacking'].map((item) => (
+            <span
+              key={item}
+              className="px-4 py-2 rounded-full text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-all duration-300"
+              style={{
+                backgroundColor: 'var(--accent-subtle)',
+                border: '1px solid var(--accent-border)',
+                color: 'var(--accent)',
+              }}
+            >
+              {item}
+            </span>
+          ))}
+        </motion.div>
+
         {/* Tech Stack Breadcrumb */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}

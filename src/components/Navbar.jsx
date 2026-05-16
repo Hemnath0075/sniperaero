@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Crosshair } from 'lucide-react';
+import { Menu, X, Crosshair, Moon, Sun } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -12,6 +13,11 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { themeId, setThemeId } = useTheme();
+
+  const toggleTheme = () => {
+    setThemeId(themeId === 'dark' ? 'white' : 'dark');
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -99,17 +105,35 @@ export default function Navbar() {
           >
             Contact Us
           </a>
+          <button
+            onClick={toggleTheme}
+            className="ml-2 p-2 rounded-full transition-all duration-300 hover:scale-110"
+            style={{ color: 'var(--text-dim)' }}
+            aria-label="Toggle theme"
+          >
+            {themeId === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden transition-colors p-2"
-          aria-label="Toggle menu"
-          style={{ color: 'var(--text-dim)' }}
-        >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Toggle & Theme Toggle */}
+        <div className="lg:hidden flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2 transition-colors duration-300"
+            style={{ color: 'var(--text-dim)' }}
+            aria-label="Toggle theme"
+          >
+            {themeId === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden transition-colors p-2"
+            aria-label="Toggle menu"
+            style={{ color: 'var(--text-dim)' }}
+          >
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}

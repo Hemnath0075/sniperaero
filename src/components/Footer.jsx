@@ -1,8 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Crosshair, Palette, Check } from 'lucide-react';
-import { FaInstagram } from "react-icons/fa";
-import { useTheme, themes } from '../context/ThemeContext';
-import { useState } from 'react';
+import { Crosshair } from 'lucide-react';
 
 const links = [
   { label: 'Home', href: '#home' },
@@ -14,15 +10,10 @@ const links = [
 ];
 
 export default function Footer() {
-  const { themeId, setThemeId } = useTheme();
-  const [showThemeLabel, setShowThemeLabel] = useState(null);
-
   const handleNav = (e, href) => {
     e.preventDefault();
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const themeList = Object.values(themes);
 
   return (
     <footer className="relative" style={{ borderTop: '1px solid var(--border-color)', backgroundColor: 'var(--bg-footer)' }}>
@@ -76,109 +67,9 @@ export default function Footer() {
             <p className="text-[11px] sm:text-xs mb-4 sm:mb-5" style={{ color: 'var(--text-dimmer)' }}>+91 99522 69356</p>
           </div>
 
-          {/* Theme Switcher */}
-          <div>
-            <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-5 font-inter flex items-center gap-2" style={{ color: 'var(--text-dim)' }}>
-              <Palette className="w-3.5 h-3.5" />
-              Color Theme
-            </h4>
-            <div className="flex flex-wrap gap-3">
-              {themeList.map((t) => {
-                const isActive = themeId === t.id;
-                return (
-                  <div key={t.id} className="relative">
-                    <button
-                      onClick={() => setThemeId(t.id)}
-                      onMouseEnter={() => setShowThemeLabel(t.id)}
-                      onMouseLeave={() => setShowThemeLabel(null)}
-                      className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl transition-all duration-300 hover:scale-110 focus:outline-none group"
-                      style={{
-                        background: t.id === 'dark'
-                          ? 'linear-gradient(135deg, #0a0f1e, #1a2540)'
-                          : t.id === 'white'
-                          ? 'linear-gradient(135deg, #f8fafc, #e2e8f0)'
-                          : 'linear-gradient(135deg, #0c1a3d, #1e3a8a)',
-                        border: isActive
-                          ? `2px solid var(--accent)`
-                          : '2px solid var(--border-color)',
-                        boxShadow: isActive
-                          ? `0 0 15px rgba(var(--accent-rgb), 0.3)`
-                          : 'none',
-                      }}
-                      aria-label={`Switch to ${t.name} theme`}
-                    >
-                      {/* Active checkmark */}
-                      <AnimatePresence>
-                        {isActive && (
-                          <motion.div
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0, opacity: 0 }}
-                            className="absolute inset-0 flex items-center justify-center"
-                          >
-                            <div
-                              className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center"
-                              style={{ backgroundColor: 'var(--accent)' }}
-                            >
-                              <Check className="w-3 h-3" style={{ color: t.id === 'white' ? '#0f172a' : '#ffffff' }} />
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Theme preview dots */}
-                      {!isActive && (
-                        <div className="absolute inset-0 flex items-center justify-center gap-1">
-                          <div
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{
-                              backgroundColor: t.id === 'dark' ? '#00d4ff' : t.id === 'white' ? '#0ea5e9' : '#60a5fa',
-                            }}
-                          />
-                          <div
-                            className="w-1.5 h-1.5 rounded-full opacity-50"
-                            style={{
-                              backgroundColor: t.id === 'dark' ? '#00d4ff' : t.id === 'white' ? '#0ea5e9' : '#60a5fa',
-                            }}
-                          />
-                        </div>
-                      )}
-                    </button>
-
-                    {/* Tooltip */}
-                    <AnimatePresence>
-                      {showThemeLabel === t.id && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 5 }}
-                          className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-lg text-[10px] font-semibold whitespace-nowrap z-50"
-                          style={{
-                            backgroundColor: 'var(--bg-card)',
-                            border: '1px solid var(--border-color)',
-                            color: 'var(--text-primary)',
-                            boxShadow: '0 4px 12px var(--shadow-color)',
-                          }}
-                        >
-                          {t.name}
-                          <div
-                            className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
-                            style={{
-                              borderLeft: '4px solid transparent',
-                              borderRight: '4px solid transparent',
-                              borderTop: '4px solid var(--border-color)',
-                            }}
-                          />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
-            <p className="text-[10px] mt-3 font-medium" style={{ color: 'var(--text-dimmer)' }}>
-              {themes[themeId]?.name} active
-            </p>
+          {/* Optional Third Column */}
+          <div className="hidden lg:block">
+            {/* Empty for layout balance */}
           </div>
         </div>
 

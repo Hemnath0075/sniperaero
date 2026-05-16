@@ -6,39 +6,38 @@ import { scrollRevealVariants } from '../hooks/useScrollAnimation';
 const programs = [
   {
     icon: Rocket,
-    title: 'Drone Design & Development',
-    description: 'Airframe engineering, propulsion, avionics, flight control, autonomous systems, FPV simulation, coding, MATLAB-based airflow design.',
+    title: 'Drone Design and Developement',
+    description: 'We provide end-to-end drone design and development, including airframe engineering, propulsion systems, avionics, flight control, autonomous capabilities, multi-payload integration, FPV simulation, coding and programming, FPV piloting, MATLAB-based airflow design and analysis, and fully customized UAV solutions for mission-critical applications.',
     hoverColor: 'rgb(34, 211, 238)',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Cybersecurity & Ethical Hacking (CEH v13)',
+    description: 'We provide advanced cybersecurity and ethical hacking training based on CEH v13, covering network security, penetration testing, vulnerability assessment, malware analysis, and real-world attack simulation, along with hands-on experience in hardware hacking, RF security, drone security, mobile hacking, and modern attack techniques, designed to build industry-ready security professionals.',
+    hoverColor: 'rgb(248, 113, 113)',
   },
   {
     icon: BrainCircuit,
     title: 'Autonomous Systems & AI',
-    description: 'Intelligent decision-making, computer vision, edge AI, multi-agent coordination, reinforcement learning, sensor fusion.',
+    description: 'We provide advanced autonomous systems and AI solutions, including intelligent decision-making, computer vision, real-time data processing, edge AI deployment, multi-agent coordination, reinforcement learning, sensor fusion, predictive analytics, and fully customized solutions for mission-critical applications.',
     hoverColor: 'rgb(192, 132, 252)',
+  },
+  {
+    icon: CircuitBoard,
+    title: 'Hardware and IIoT',
+    description: 'We provide advanced hardware training covering PCB design, circuit analysis, embedded systems, microcontrollers, sensor integration, debugging, prototyping, and hands-on development, designed to build industry-ready hardware engineers.',
+    hoverColor: 'rgb(251, 191, 36)',
   },
   {
     icon: Wifi,
     title: 'Industrial IoT Solutions',
-    description: 'Smart sensing, real-time monitoring, edge computing, predictive maintenance, digital twin, AI-driven analytics.',
+    description: 'We provide advanced Industrial IoT solutions, including smart sensing, real-time monitoring, edge computing, cloud integration, predictive maintenance, industrial automation, digital twin integration, AI-driven analytics, secure connectivity, remote asset management, and fully customized solutions for scalable, mission-critical operations.',
     hoverColor: 'rgb(74, 222, 128)',
   },
   {
-    icon: ShieldCheck,
-    title: 'Cybersecurity & Ethical Hacking',
-    subtitle: 'CEH v13',
-    description: 'Network security, penetration testing, vulnerability assessment, malware analysis, hardware hacking, RF security, drone security.',
-    hoverColor: 'rgb(248, 113, 113)',
-  },
-  {
-    icon: CircuitBoard,
-    title: 'Hardware & IIoT',
-    description: 'PCB design, circuit analysis, embedded systems, microcontrollers, sensor integration, prototyping.',
-    hoverColor: 'rgb(251, 191, 36)',
-  },
-  {
     icon: Code2,
-    title: 'Programming & Software',
-    description: 'Python, Java, full-stack, DevOps, AI/ML, data science, AWS, microservices, system design.',
+    title: 'Programming & Advanced Software Development',
+    description: 'We provide comprehensive training in Python, Java, full-stack development, DevOps, AI/ML, data analytics, data science, AWS cloud, API development, microservices architecture, database management, system design, and modern software engineering practices, designed to build industry-ready developers for scalable and high-performance applications.',
     hoverColor: 'rgb(56, 189, 248)',
   },
 ];

@@ -6,27 +6,27 @@ import { scrollRevealVariants } from '../hooks/useScrollAnimation';
 const services = [
   {
     icon: Plane,
-    title: 'UAV Systems',
-    description: 'Advanced UAV, FPV, and VTOL drone solutions with autonomous capabilities, multi-payload integration, AI-driven analytics, air quality monitoring, LiDAR-based surveying, and customized solutions for mission-critical operations.',
-    image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80',
+    title: 'UAV SYSTEMS',
+    description: 'We provide advanced UAV, FPV, and VTOL drone solutions with autonomous capabilities, multi-payload integration, AI-driven analytics, air quality monitoring, LiDAR-based surveying, and fully customized solutions for mission-critical operations.',
+    image: '/service_uav.png',
   },
   {
     icon: Shield,
-    title: 'Counter-UAV',
-    description: 'Advanced counter-UAV and anti-drone systems with autonomous detection, multi-layer threat analysis, AI-driven tracking, real-time neutralization, and customized security solutions.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80',
+    title: 'Counter-uav',
+    description: 'We provide advanced counter-UAV and anti-drone systems with autonomous detection, multi-layer threat analysis, AI-driven tracking, real-time neutralization, and fully customized solutions for mission-critical security operations.',
+    image: '/service_counter_uav.png',
   },
   {
     icon: Cpu,
-    title: 'IoT & Embedded Systems',
-    description: 'End-to-end IoT and embedded solutions including PCB design, firmware development, embedded systems, cloud integration, onboard computing, and FPGA acceleration.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',
+    title: 'IoT and Embedded',
+    description: 'We provide end-to-end IoT and embedded solutions, including PCB design, firmware development, embedded systems, cloud integration, onboard computing, FPGA acceleration, and fully customized solutions for intelligent, mission-critical applications.',
+    image: '/service_iot.png',
   },
   {
     icon: Server,
-    title: 'System Architecture & Software',
-    description: 'Full-stack development, DevOps, Kubernetes, AI/ML integration, cybersecurity, cloud infrastructure, and scalable secure deployments.',
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',
+    title: 'Advanced System Architecture & Scalable Software Solutions',
+    description: 'We provide end-to-end system architecture solutions, from full-stack development to advanced software engineering, DevOps, Kubernetes orchestration, AI/ML integration, cybersecurity, cloud infrastructure, and scalable, secure deployments for mission-critical applications.',
+    image: '/service_software.png',
   },
 ];
 
