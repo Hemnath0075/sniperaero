@@ -2,30 +2,32 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Plane, Shield, Cpu, Server } from 'lucide-react';
 import { scrollRevealVariants } from '../hooks/useScrollAnimation';
+import TechCanvas from './TechCanvas';
+import FloatingDrone from './FloatingDrone';
 
 const services = [
   {
     icon: Plane,
     title: 'UAV SYSTEMS',
-    description: 'We provide advanced UAV, FPV, and VTOL drone solutions with autonomous capabilities, multi-payload integration, AI-driven analytics, air quality monitoring, LiDAR-based surveying, and fully customized solutions for mission-critical operations.',
+    description: 'Advanced UAV, FPV, and VTOL platforms featuring autonomous navigation, AI-powered analytics, multi-payload integration, air quality monitoring, and LiDAR-based surveying for complex operational environments.',
     image: '/service_uav.png',
   },
   {
     icon: Shield,
-    title: 'Counter-uav',
-    description: 'We provide advanced counter-UAV and anti-drone systems with autonomous detection, multi-layer threat analysis, AI-driven tracking, real-time neutralization, and fully customized solutions for mission-critical security operations.',
+    title: 'Counter-UAV',
+    description: 'Intelligent counter-UAV and anti-drone systems equipped with autonomous detection, AI-driven target tracking, layered threat assessment, and real-time neutralization for critical security and defense operations.',
     image: '/service_counter_uav.png',
   },
   {
     icon: Cpu,
-    title: 'IoT and Embedded',
-    description: 'We provide end-to-end IoT and embedded solutions, including PCB design, firmware development, embedded systems, cloud integration, onboard computing, FPGA acceleration, and fully customized solutions for intelligent, mission-critical applications.',
+    title: 'IoT & Embedded',
+    description: 'End-to-end IoT and embedded engineering services covering PCB design, firmware development, onboard computing, FPGA acceleration, embedded architecture, and seamless cloud-connected solutions for smart applications.',
     image: '/service_iot.png',
   },
   {
     icon: Server,
-    title: 'Advanced System Architecture & Scalable Software Solutions',
-    description: 'We provide end-to-end system architecture solutions, from full-stack development to advanced software engineering, DevOps, Kubernetes orchestration, AI/ML integration, cybersecurity, cloud infrastructure, and scalable, secure deployments for mission-critical applications.',
+    title: 'System Architecture & Scalable Software Solutions',
+    description: 'Enterprise-grade software and infrastructure solutions including full-stack development, DevOps, Kubernetes orchestration, AI/ML integration, cybersecurity, ethical hacking, and scalable cloud-native deployments for high-performance environments.',
     image: '/service_software.png',
   },
 ];
@@ -41,6 +43,12 @@ export default function Services() {
 
   return (
     <section id="services" ref={sectionRef} className="relative py-16 sm:py-24 overflow-hidden">
+      {/* Tech Canvas Background */}
+      <TechCanvas opacity={0.12} />
+
+      {/* Floating Drone */}
+      <FloatingDrone position="top-right" size={100} />
+
       {/* Background accent - parallax */}
       <motion.div
         style={{ x: glowX }}
@@ -59,9 +67,9 @@ export default function Services() {
           viewport={{ once: true, margin: '-100px' }}
           className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>
+          {/* <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>
             What We Do
-          </span>
+          </span> */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             Our <span style={{ color: 'var(--accent)' }}>Services</span>
           </h2>

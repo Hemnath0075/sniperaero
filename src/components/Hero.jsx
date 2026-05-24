@@ -124,9 +124,9 @@ export default function Hero() {
         <div className="absolute top-10 right-10 w-20 sm:w-32 h-20 sm:h-32 rounded-tr-3xl" style={{ borderRight: '1px solid var(--accent-border)', borderTop: '1px solid var(--accent-border)' }} />
         <div className="absolute bottom-10 left-10 w-20 sm:w-32 h-20 sm:h-32 rounded-bl-3xl" style={{ borderLeft: '1px solid var(--accent-border)', borderBottom: '1px solid var(--accent-border)' }} />
         <div className="absolute bottom-10 right-10 w-20 sm:w-32 h-20 sm:h-32 rounded-br-3xl" style={{ borderRight: '1px solid var(--accent-border)', borderBottom: '1px solid var(--accent-border)' }} />
-        
+
         {/* Scanning Line */}
-        <motion.div 
+        <motion.div
           animate={{ top: ['0%', '100%', '0%'] }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           className="absolute left-0 right-0 h-[2px] z-0"
@@ -140,14 +140,14 @@ export default function Hero() {
       {/* Floating Drone Graphic */}
       <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
         <motion.div
-          animate={{ 
+          animate={{
             y: [0, -20, 0],
             rotate: [0, 1, -1, 0]
           }}
-          transition={{ 
-            duration: 6, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
           className="relative w-full max-w-4xl flex justify-between items-center px-4 sm:px-10 opacity-30"
         >
@@ -159,52 +159,52 @@ export default function Hero() {
             </div>
             <div className="p-3 rounded-lg backdrop-blur-sm" style={{ border: '1px solid var(--accent-border)', backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}>
               <div className="text-[10px] uppercase tracking-tighter mb-1" style={{ color: 'var(--accent)' }}>Telemetry</div>
-              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>LAT: 12.9716<br/>LON: 77.5946</div>
+              <div className="font-mono text-xs" style={{ color: 'var(--text-primary)' }}>LAT: 12.9716<br />LON: 77.5946</div>
             </div>
           </div>
 
           {/* Center Drone Silhouette (SVG) */}
           <div className="relative">
-             <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[200px] sm:w-[300px] lg:w-[400px] h-auto" style={{ color: 'var(--accent)', filter: `drop-shadow(0 0 20px rgba(var(--accent-rgb), 0.3))` }}>
-                {/* Main Body */}
-                <path d="M150 100L250 100L260 110L140 110L150 100Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2"/>
-                <path d="M180 90L220 90L230 100L170 100L180 90Z" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1"/>
-                {/* Arms */}
-                <path d="M150 100L100 60M150 110L100 150M250 100L300 60M250 110L300 150" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-                {/* Motors/Rotors */}
-                <circle cx="100" cy="60" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2"/>
-                <circle cx="100" cy="150" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2"/>
-                <circle cx="300" cy="60" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2"/>
-                <circle cx="300" cy="150" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2"/>
-                {/* Spinning blades animation */}
-                <motion.circle 
-                  animate={{ rotate: 360 }} 
-                  transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
-                  cx="100" cy="60" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
-                />
-                <motion.circle 
-                  animate={{ rotate: -360 }} 
-                  transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
-                  cx="100" cy="150" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
-                />
-                <motion.circle 
-                  animate={{ rotate: -360 }} 
-                  transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
-                  cx="300" cy="60" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
-                />
-                <motion.circle 
-                  animate={{ rotate: 360 }} 
-                  transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
-                  cx="300" cy="150" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
-                />
-             </svg>
-             {/* Scanning pulse */}
-             <motion.div 
-               animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
-               transition={{ duration: 2, repeat: Infinity }}
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 sm:w-40 h-28 sm:h-40 rounded-full"
-               style={{ border: `2px solid var(--accent)` }}
-             />
+            <svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[200px] sm:w-[300px] lg:w-[400px] h-auto" style={{ color: 'var(--accent)', filter: `drop-shadow(0 0 20px rgba(var(--accent-rgb), 0.3))` }}>
+              {/* Main Body */}
+              <path d="M150 100L250 100L260 110L140 110L150 100Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" />
+              <path d="M180 90L220 90L230 100L170 100L180 90Z" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1" />
+              {/* Arms */}
+              <path d="M150 100L100 60M150 110L100 150M250 100L300 60M250 110L300 150" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              {/* Motors/Rotors */}
+              <circle cx="100" cy="60" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
+              <circle cx="100" cy="150" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
+              <circle cx="300" cy="60" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
+              <circle cx="300" cy="150" r="15" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
+              {/* Spinning blades animation */}
+              <motion.circle
+                animate={{ rotate: 360 }}
+                transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
+                cx="100" cy="60" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
+              />
+              <motion.circle
+                animate={{ rotate: -360 }}
+                transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
+                cx="100" cy="150" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
+              />
+              <motion.circle
+                animate={{ rotate: -360 }}
+                transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
+                cx="300" cy="60" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
+              />
+              <motion.circle
+                animate={{ rotate: 360 }}
+                transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
+                cx="300" cy="150" r="20" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5"
+              />
+            </svg>
+            {/* Scanning pulse */}
+            <motion.div
+              animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 sm:w-40 h-28 sm:h-40 rounded-full"
+              style={{ border: `2px solid var(--accent)` }}
+            />
           </div>
 
           {/* Right HUD readout */}
@@ -224,7 +224,7 @@ export default function Hero() {
       {/* Content with parallax */}
       <motion.div style={{ y: contentY, opacity }} className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 sm:pt-24">
         {/* Badge */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
@@ -237,7 +237,7 @@ export default function Hero() {
         >
           <Zap className="w-3 h-3 animate-pulse" />
           Autonomous Defense Systems
-        </motion.div>
+        </motion.div> */}
 
         {/* Heading */}
         <motion.h1
@@ -362,12 +362,12 @@ export default function Hero() {
       >
         <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.3em] uppercase">System Ready</span>
         <div className="relative w-[2px] h-8 sm:h-12 overflow-hidden" style={{ backgroundColor: 'var(--border-color)' }}>
-           <motion.div 
+          <motion.div
             animate={{ top: ['-100%', '100%'] }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             className="absolute left-0 right-0 h-1/2"
             style={{ backgroundColor: 'var(--accent)' }}
-           />
+          />
         </div>
       </motion.div>
     </section>

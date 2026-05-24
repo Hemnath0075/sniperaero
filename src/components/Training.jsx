@@ -2,6 +2,8 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Rocket, BrainCircuit, Wifi, ShieldCheck, CircuitBoard, Code2 } from 'lucide-react';
 import { scrollRevealVariants } from '../hooks/useScrollAnimation';
+import TechCanvas from './TechCanvas';
+import FloatingDrone from './FloatingDrone';
 
 const programs = [
   {
@@ -53,6 +55,12 @@ export default function Training() {
 
   return (
     <section id="training" ref={sectionRef} className="relative py-16 sm:py-24">
+      {/* Tech Canvas Background */}
+      <TechCanvas opacity={0.1} />
+
+      {/* Floating Drone */}
+      <FloatingDrone position="bottom-left" size={90} showData={false} />
+
       {/* Parallax background glow */}
       <motion.div
         style={{ y: glowY }}
@@ -70,7 +78,7 @@ export default function Training() {
           viewport={{ once: true, margin: '-100px' }}
           className="text-center mb-10 sm:mb-16"
         >
-          <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>Programs</span>
+          {/* <span className="text-xs font-semibold tracking-[0.3em] uppercase mb-4 block" style={{ color: 'var(--accent)' }}>Programs</span> */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             Training <span style={{ color: 'var(--accent)' }}>Programs</span>
           </h2>

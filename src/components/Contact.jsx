@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Send, CheckCircle } from 'lucide-react';
 import { FaInstagram } from "react-icons/fa";
 import { scrollRevealVariants } from '../hooks/useScrollAnimation';
+import TechCanvas from './TechCanvas';
+import FloatingDrone from './FloatingDrone';
 
 const subjects = ['UAV Systems', 'Counter-UAV', 'IoT & Embedded', 'Software', 'Training', 'Other'];
 
@@ -50,7 +52,13 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-16 sm:py-24">
+    <section id="contact" className="relative py-16 sm:py-24 overflow-hidden">
+      {/* Tech Canvas Background */}
+      <TechCanvas opacity={0.08} />
+
+      {/* Floating Drone */}
+      <FloatingDrone position="top-left" size={80} showData={false} />
+
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full blur-[150px] sm:blur-[200px]"
         style={{ backgroundColor: 'rgba(var(--accent-rgb), 0.03)' }}
