@@ -82,7 +82,8 @@ export default function Footer() {
             © 2025 Sniper Aero. All rights reserved.
           </p>
           <p className="text-[10px] sm:text-[11px] tracking-wide" style={{ color: 'var(--text-dimmer)' }}>
-            CFI, IIT Madras, Chennai - 600036
+            CFI, Sudha and Shankar Innovation Hub, <br/>
+IIT Madras, Chennai - 600036
           </p>
         </div>
       </div>

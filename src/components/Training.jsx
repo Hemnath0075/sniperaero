@@ -8,38 +8,38 @@ import FloatingDrone from './FloatingDrone';
 const programs = [
   {
     icon: Rocket,
-    title: 'Drone Design and Developement',
-    description: 'We provide end-to-end drone design and development, including airframe engineering, propulsion systems, avionics, flight control, autonomous capabilities, multi-payload integration, FPV simulation, coding and programming, FPV piloting, MATLAB-based airflow design and analysis, and fully customized UAV solutions for mission-critical applications.',
+    title: 'Drone Design and Development',
+    description: 'Advanced drone design and development training covering airframe engineering, propulsion systems, avionics integration, flight control systems, autonomous navigation, PX4/ArduPilot architecture, multi-payload integration, FPV simulation, UAV programming, ROS integration, MATLAB-based aerodynamic analysis, and mission-ready UAV development workflows.',
     hoverColor: 'rgb(34, 211, 238)',
   },
   {
     icon: ShieldCheck,
     title: 'Cybersecurity & Ethical Hacking (CEH v13)',
-    description: 'We provide advanced cybersecurity and ethical hacking training based on CEH v13, covering network security, penetration testing, vulnerability assessment, malware analysis, and real-world attack simulation, along with hands-on experience in hardware hacking, RF security, drone security, mobile hacking, and modern attack techniques, designed to build industry-ready security professionals.',
+    description: 'Professional cybersecurity and ethical hacking training based on CEH v13, covering penetration testing, vulnerability assessment, malware analysis, exploit development, network security, SIEM, threat intelligence, hardware hacking, RF security, drone security, mobile security testing, web application security, and real-world red team attack simulations.',
     hoverColor: 'rgb(248, 113, 113)',
   },
   {
     icon: BrainCircuit,
     title: 'Autonomous Systems & AI',
-    description: 'We provide advanced autonomous systems and AI solutions, including intelligent decision-making, computer vision, real-time data processing, edge AI deployment, multi-agent coordination, reinforcement learning, sensor fusion, predictive analytics, and fully customized solutions for mission-critical applications.',
+    description: 'Comprehensive training in autonomous systems and AI technologies including computer vision, deep learning, reinforcement learning, edge AI deployment, SLAM, sensor fusion, multi-agent coordination, real-time data processing, predictive analytics, intelligent decision-making, and AI-driven autonomous platforms.',
     hoverColor: 'rgb(192, 132, 252)',
   },
   {
     icon: CircuitBoard,
     title: 'Hardware and IIoT',
-    description: 'We provide advanced hardware training covering PCB design, circuit analysis, embedded systems, microcontrollers, sensor integration, debugging, prototyping, and hands-on development, designed to build industry-ready hardware engineers.',
+    description: 'Hands-on hardware and IIoT training covering PCB design, circuit analysis, embedded systems, microcontrollers, FPGA fundamentals, sensor interfacing, communication protocols, debugging, prototyping, embedded firmware development, and industrial hardware implementation using real-time development environments.',
     hoverColor: 'rgb(251, 191, 36)',
   },
   {
     icon: Wifi,
     title: 'Industrial IoT Solutions',
-    description: 'We provide advanced Industrial IoT solutions, including smart sensing, real-time monitoring, edge computing, cloud integration, predictive maintenance, industrial automation, digital twin integration, AI-driven analytics, secure connectivity, remote asset management, and fully customized solutions for scalable, mission-critical operations.',
+    description: 'Industry-oriented IIoT training focused on smart sensing, edge computing, industrial automation, SCADA integration, PLC communication, MQTT/Modbus protocols, digital twin systems, predictive maintenance, cloud-enabled monitoring, AI-driven analytics, and secure industrial connectivity for smart manufacturing environments.',
     hoverColor: 'rgb(74, 222, 128)',
   },
   {
     icon: Code2,
     title: 'Programming & Advanced Software Development',
-    description: 'We provide comprehensive training in Python, Java, full-stack development, DevOps, AI/ML, data analytics, data science, AWS cloud, API development, microservices architecture, database management, system design, and modern software engineering practices, designed to build industry-ready developers for scalable and high-performance applications.',
+    description: 'Comprehensive software engineering training covering Python, Java, full-stack development, DevOps pipelines, Kubernetes, Docker, AI/ML, data analytics, data science, AWS cloud services, REST API development, microservices architecture, database optimization, CI/CD workflows, system design, and scalable enterprise application development.',
     hoverColor: 'rgb(56, 189, 248)',
   },
 ];
