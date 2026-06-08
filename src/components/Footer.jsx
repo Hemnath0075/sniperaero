@@ -1,4 +1,6 @@
 import { Crosshair } from 'lucide-react';
+import Logo from '../assets/logo_sniperaero.png';
+
 
 const links = [
   { label: 'Home', href: '#home' },
@@ -21,19 +23,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div
-                className="w-8 sm:w-9 h-8 sm:h-9 rounded-lg flex items-center justify-center"
-                style={{
-                  backgroundColor: 'var(--accent-subtle)',
-                  border: '1px solid var(--accent-border)',
-                }}
-              >
-                <Crosshair className="w-3.5 sm:w-4 h-3.5 sm:h-4" style={{ color: 'var(--accent)' }} />
-              </div>
-              <span className="font-orbitron font-bold text-base sm:text-lg tracking-widest" style={{ color: 'var(--text-primary)' }}>
-                SNIPER<span style={{ color: 'var(--accent)' }}>AERO</span>
-              </span>
+            <div className="flex ml-10 items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <a href="#home" className="flex relative items-center group" onClick={(e) => handleNav(e, '#home')}>
+          
+          <img src={Logo} alt="" className='absolute right-40 h-[70px] mt-2 w-[70px] object-fill'/>
+          <span className="font-orbitron font-bold text-lg sm:text-xl tracking-widest" style={{ color: 'var(--text-primary)' }}>
+            SNIPER<span style={{ color: 'var(--accent)' }}>AERO</span>
+          </span>
+        </a>
             </div>
             <p className="text-[11px] sm:text-xs leading-relaxed max-w-xs" style={{ color: 'var(--text-dimmer)' }}>
               Pioneering the future of unmanned aerial vehicles, IoT ecosystems, AI and ML defense technology.
@@ -79,10 +76,10 @@ export default function Footer() {
           style={{ borderTop: '1px solid var(--border-color)' }}
         >
           <p className="text-[10px] sm:text-[11px] tracking-wide" style={{ color: 'var(--text-dimmer)' }}>
-            © 2025 Sniper Aero. All rights reserved.
+            © 2026 Sniper Aero. All rights reserved.
           </p>
           <p className="text-[10px] sm:text-[11px] tracking-wide" style={{ color: 'var(--text-dimmer)' }}>
-            CFI, IIT Madras, Chennai - 600036
+            Sniperaero, Sudha and Shankar Innovation Hub, <br/>IIT Madras, Chennai - 600036
           </p>
         </div>
       </div>

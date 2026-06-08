@@ -104,7 +104,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold mb-1 font-inter" style={{ color: 'var(--text-primary)' }}>Location</h4>
-                  <p className="text-[11px] sm:text-xs leading-relaxed" style={{ color: 'var(--text-dim)' }}>CFI, Sudha and Shankar Innovation Hub,<br />IIT Madras, Chennai - 600036</p>
+                  <p className="text-[11px] sm:text-xs leading-relaxed" style={{ color: 'var(--text-dim)' }}>Sniperaero, Sudha and Shankar Innovation Hub,<br />IIT Madras, Chennai - 600036</p>
                 </div>
               </div>
 

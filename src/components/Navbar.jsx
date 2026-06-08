@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Crosshair, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import Logo from '../assets/logo_sniperaero.png';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -55,8 +56,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2 sm:gap-3 group" onClick={(e) => handleNav(e, '#home')}>
-          <div
+        <a href="#home" className="flex relative items-center group" onClick={(e) => handleNav(e, '#home')}>
+          {/* <div
             className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300"
             style={{
               backgroundColor: 'var(--accent-subtle)',
@@ -68,7 +69,8 @@ export default function Navbar() {
               className="absolute inset-0 rounded-lg blur-sm group-hover:blur-md transition-all"
               style={{ backgroundColor: 'rgba(var(--accent-rgb), 0.05)' }}
             />
-          </div>
+          </div> */}
+          <img src={Logo} alt="" className='absolute right-40 h-[90px] mt-2 w-[90px] object-fill'/>
           <span className="font-orbitron font-bold text-lg sm:text-xl tracking-widest" style={{ color: 'var(--text-primary)' }}>
             SNIPER<span style={{ color: 'var(--accent)' }}>AERO</span>
           </span>
